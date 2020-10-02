@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Position implements Comparable<Position> {
+public class Position {
     int id;
     int price;
     String departureAirport;
@@ -14,10 +14,5 @@ public class Position implements Comparable<Position> {
 
     public boolean matches(String from, String to) {
         return (this.departureAirport().equalsIgnoreCase(from)) && (this.arrivalAirport().equalsIgnoreCase(to));
-    }
-
-    @Override
-    public int compareTo(Position o) {
-        return price - o.price;
     }
 }

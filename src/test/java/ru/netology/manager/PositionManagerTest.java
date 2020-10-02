@@ -3,12 +3,14 @@ package ru.netology.manager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Position;
+import ru.netology.domain.PositionComparator;
 import ru.netology.repository.PositionRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PositionManagerTest {
     int nonexistentID = 6;
+    PositionComparator time = new PositionComparator();
     PositionRepository repository = new PositionRepository();
     PositionManager manager = new PositionManager(repository);
     Position firstPosition = new Position(1, 2742, "LED", "MOW", 95);
@@ -27,9 +29,9 @@ class PositionManagerTest {
     }
 
     @Test
-    public void shouldFindAndSort() {
-        Position[] expected = new Position[]{secondPosition, thirdPosition, firstPosition};
-        Position[] actual = manager.searchByAirports("LED", "MOW");
+    public void shouldFindAndSortByPriceAndTime() {
+        Position[] expected = new Position[]{thirdPosition, secondPosition, firstPosition};
+        Position[] actual = manager.searchByAirports("LED", "MOW", time);
         assertArrayEquals(expected, actual);
     }
 
