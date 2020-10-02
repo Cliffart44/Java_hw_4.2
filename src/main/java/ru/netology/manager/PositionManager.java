@@ -2,6 +2,7 @@ package ru.netology.manager;
 
 import ru.netology.domain.NotFoundException;
 import ru.netology.domain.Position;
+import ru.netology.domain.PositionComparator;
 import ru.netology.repository.PositionRepository;
 
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class PositionManager {
         repository.save(item);
     }
 
-    public Position[] searchByAirports(String from, String to) {
+    public Position[] searchByAirports(String from, String to, PositionComparator comp) {
         Position[] result = new Position[0];
         for (Position item : repository.findAll()) {
             if (item.matches(from, to)) {
@@ -25,7 +26,7 @@ public class PositionManager {
                 System.arraycopy(result, 0, tmp, 0, result.length);
                 tmp[tmp.length - 1] = item;
                 result = tmp;
-                Arrays.sort(result);
+                Arrays.sort(result, comp);
             }
         }
         return result;
