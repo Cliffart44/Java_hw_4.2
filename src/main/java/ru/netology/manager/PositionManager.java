@@ -6,6 +6,7 @@ import ru.netology.domain.PositionComparator;
 import ru.netology.repository.PositionRepository;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class PositionManager {
     PositionRepository repository;
@@ -18,7 +19,7 @@ public class PositionManager {
         repository.save(item);
     }
 
-    public Position[] searchByAirports(String from, String to, PositionComparator comp) {
+    public Position[] searchByAirports(String from, String to, Comparator<Position> time) {
         Position[] result = new Position[0];
         for (Position item : repository.findAll()) {
             if (item.matches(from, to)) {
@@ -26,8 +27,8 @@ public class PositionManager {
                 System.arraycopy(result, 0, tmp, 0, result.length);
                 tmp[tmp.length - 1] = item;
                 result = tmp;
-                Arrays.sort(result, comp);
             }
+            Arrays.sort(result, time);
         }
         return result;
     }
